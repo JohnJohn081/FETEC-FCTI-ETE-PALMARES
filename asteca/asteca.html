@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Templo Asteca - FCTI 2025</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Menu de Acessibilidade -->
+  <nav aria-label="Acessibilidade" class="acessibilidade-nav">
+    <button onclick="alterarFonte('+')" aria-label="Aumentar fonte (tecla: Alt + A)">A+ Fonte</button>
+    <button onclick="alterarFonte('-')" aria-label="Diminuir fonte (tecla: Alt + D)">A- Fonte</button>
+    <button onclick="alternarContraste()" aria-label="Ativar/Desativar contraste (tecla: Alt + C)">Contraste</button>
+    <button onclick="lerTexto()" aria-label="Ler o conteúdo da página (tecla: Alt + L)">🔊 Ouvir descrição</button>
+    <button onclick="pararLeitura()" aria-label="Parar narração (tecla: Alt + P)">⏹ Parar narração</button>
+  </nav>
+
+  <div class="container">
+    <header>
+      <h1 id="titulo" tabindex="0"></h1>
+      <p class="subtitulo" id="subtitulo" tabindex="0"></p>
+    </header>
+
+    <main>
+      <div class="imagem-container">
+        <img src="imagem01.jpg" alt="Representação 3D do Templo Asteca com escadarias" />
+      </div>
+
+      <section class="descricao">
+        <h2 tabindex="0">Sobre o Modelo</h2>
+        <p>
+          Este templo asteca foi uma estrutura típica utilizada para rituais religiosos e cerimônias dedicadas aos deuses. 
+          Elevado sobre plataformas com escadarias, o templo simboliza a profunda relação entre espiritualidade e poder na cultura asteca.
+        </p>
+
+        <h3 tabindex="0">Origem</h3>
+        <p>Mesoamérica – atual México</p>
+
+        <h3 tabindex="0">Data Histórica</h3>
+        <p>Entre os séculos XIV e XVI</p>
+
+        <h3 tabindex="0">Curiosidades</h3>
+        <ul>
+          <li>Servia para sacrifícios humanos como oferenda aos deuses.</li>
+          <li>O mais famoso é o Templo Mayor, localizado em Tenochtitlán.</li>
+          <li>A arquitetura piramidal influenciou outras civilizações americanas.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>FCTI 2025 • ETE Palmares • #Inovação #História3D</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

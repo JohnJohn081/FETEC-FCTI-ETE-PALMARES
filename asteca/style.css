@@ -1,0 +1,131 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fonte e corpo */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f4f4;
+  color: #222;
+  line-height: 1.6;
+  font-size: 100%;
+}
+
+/* Container centralizado com margem */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Cabeçalho */
+header {
+  background-color: #e83b3d;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.subtitulo {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Imagem */
+.imagem-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.imagem-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Descrição */
+.descricao {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.descricao h2, .descricao h3 {
+  color: #e83b3d;
+  margin-top: 15px;
+}
+
+.descricao ul {
+  padding-left: 20px;
+}
+
+/* Rodapé */
+footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #888;
+}
+
+/* Acessibilidade */
+.acessibilidade-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 15px 20px;
+  background-color: #fff;
+}
+
+.acessibilidade-nav button {
+  background-color: #e83b3d;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.acessibilidade-nav button:hover {
+  background-color: #c62f30;
+}
+
+/* Contraste alto */
+body.contraste-alto {
+  background-color: #000;
+  color: #fff;
+}
+
+body.contraste-alto header {
+  background-color: #000;
+  border-bottom: 2px solid #fff;
+}
+
+body.contraste-alto .descricao,
+body.contraste-alto footer {
+  background-color: #111;
+  color: #fff;
+}
+
+body.contraste-alto img {
+  filter: brightness(0.8) contrast(1.5);
+}
+
+/* Efeito máquina de escrever */
+#titulo::after,
+#subtitulo::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  margin-left: 5px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
