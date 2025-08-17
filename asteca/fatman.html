@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fat Man - FCTI 2025</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Menu de Acessibilidade -->
+  <nav aria-label="Acessibilidade" class="acessibilidade-nav">
+    <button onclick="alterarFonte('+')" aria-label="Aumentar fonte (tecla: Alt + A)">A+ Fonte</button>
+    <button onclick="alterarFonte('-')" aria-label="Diminuir fonte (tecla: Alt + D)">A- Fonte</button>
+    <button onclick="alternarContraste()" aria-label="Ativar/Desativar contraste (tecla: Alt + C)">Contraste</button>
+    <button id="btnLeitura" onclick="alternarLeitura()" aria-label="Ouvir ou parar descrição (tecla: Alt + L)">🔊 Ouvir descrição</button>
+  </nav>
+
+  <div class="container">
+    <header>
+      <h1 id="titulo" tabindex="0"></h1>
+      <p class="subtitulo" id="subtitulo" tabindex="0"></p>
+    </header>
+
+    <main>
+      <div class="imagem-container">
+        <img src="img/imagem10.jpg" alt="Fat Man, bomba nuclear lançada sobre Nagasaki durante a Segunda Guerra Mundial" />
+      </div>
+
+      <section class="descricao">
+        <h2 tabindex="0">Sobre o Modelo</h2>
+        <p>
+          O <strong>Fat Man</strong> foi uma das bombas nucleares utilizadas durante a Segunda Guerra Mundial, lançada sobre a cidade de Nagasaki, Japão, em 9 de agosto de 1945. 
+          Foi um dispositivo do tipo plutônio implosivo, responsável por causar grande destruição e marcar a história mundial.
+        </p>
+
+        <h3 tabindex="0">Origem</h3>
+        <p>Estados Unidos – Projeto Manhattan</p>
+
+        <h3 tabindex="0">Data Histórica</h3>
+        <p>9 de agosto de 1945</p>
+
+        <h3 tabindex="0">Curiosidades</h3>
+        <ul>
+          <li>O nome "Fat Man" foi inspirado no físico Winston Churchill e no formato da bomba.</li>
+          <li>Foi a segunda e última bomba nuclear utilizada em um conflito militar.</li>
+          <li>A explosão matou instantaneamente cerca de 40.000 pessoas, com milhares de vítimas posteriores por radiação.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>FCTI 2025 • ETE Palmares • #Inovação #História3D</p>
+    </footer>
+  </div>
+
+  <script>
+    // Efeito máquina de escrever
+    function typeWriter(elementId, text, delay = 50, callback = null) {
+      const el = document.getElementById(elementId);
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          el.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, delay);
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      typeWriter("titulo", "Fat Man", 80, () => {
+        typeWriter("subtitulo", "Bomba Nuclear • Segunda Guerra Mundial", 40);
+      });
+    });
+
+    // Acessibilidade - Fonte
+    let tamanhoFonte = 100;
+    function alterarFonte(acao) {
+      if (acao === '+') tamanhoFonte += 10;
+      else if (acao === '-' && tamanhoFonte > 60) tamanhoFonte -= 10;
+      document.body.style.fontSize = tamanhoFonte + '%';
+    }
+
+    // Acessibilidade - Contraste
+    function alternarContraste() {
+      document.body.classList.toggle("contraste-alto");
+    }
+
+    // Botão de leitura dinâmica
+    let lendo = false;
+    let utterance;
+    const btnLeitura = document.getElementById("btnLeitura");
+
+    function alternarLeitura() {
+      if (!lendo) lerTexto();
+      else pararLeitura();
+    }
+
+    function lerTexto() {
+      pararLeitura();
+      const texto = `
+        Fat Man.
+        Bomba Nuclear – Segunda Guerra Mundial.
+        Sobre o modelo: O Fat Man foi uma das bombas nucleares utilizadas durante a Segunda Guerra Mundial, lançada sobre a cidade de Nagasaki, Japão, em 9 de agosto de 1945. 
+        Foi um dispositivo do tipo plutônio implosivo, responsável por causar grande destruição e marcar a história mundial.
+        Origem: Estados Unidos – Projeto Manhattan.
+        Data histórica: 9 de agosto de 1945.
+        Curiosidades:
+        Um – O nome "Fat Man" foi inspirado no físico Winston Churchill e no formato da bomba.
+        Dois – Foi a segunda e última bomba nuclear utilizada em um conflito militar.
+        Três – A explosão matou instantaneamente cerca de quarenta mil pessoas, com milhares de vítimas posteriores por radiação.
+      `;
+      utterance = new SpeechSynthesisUtterance(texto);
+      utterance.lang = 'pt-BR';
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.onend = () => {
+        lendo = false;
+        btnLeitura.textContent = "🔊 Ouvir descrição";
+      };
+      speechSynthesis.speak(utterance);
+      lendo = true;
+      btnLeitura.textContent = "⏹ Parar narração";
+    }
+
+    function pararLeitura() {
+      if (speechSynthesis.speaking) speechSynthesis.cancel();
+      lendo = false;
+      btnLeitura.textContent = "🔊 Ouvir descrição";
+    }
+
+    // Atalhos de teclado
+    window.addEventListener("keydown", (e) => {
+      if (e.altKey) {
+        const k = e.key.toLowerCase();
+        if (k === 'a') alterarFonte('+');
+        if (k === 'd') alterarFonte('-');
+        if (k === 'c') alternarContraste();
+        if (k === 'l') alternarLeitura();
+      }
+    });
+  </script>
+</body>
+</html>
