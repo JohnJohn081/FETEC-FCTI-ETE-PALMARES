@@ -42,16 +42,7 @@ function lerTexto() {
   pararLeitura(); // para se já estiver lendo
 
   const texto = `
-    Templo Asteca.
-    Civilização Asteca, Século catorze ao dezesseis.
-    Sobre o modelo: Este templo asteca foi uma estrutura típica utilizada para rituais religiosos e cerimônias dedicadas aos deuses. 
-    Elevado sobre plataformas com escadarias, o templo simboliza a profunda relação entre espiritualidade e poder na cultura asteca.
-    Origem: Mesoamérica – atual México.
-    Data histórica: entre os séculos catorze e dezesseis.
-    Curiosidades:
-    Um – Servia para sacrifícios humanos como oferenda aos deuses.
-    Dois – O mais famoso é o Templo Mayor, localizado em Tenochtitlán.
-    Três – A arquitetura piramidal influenciou outras civilizações americanas.
+    exemplo de texto
   `;
 
   const utterance = new SpeechSynthesisUtterance(texto);
