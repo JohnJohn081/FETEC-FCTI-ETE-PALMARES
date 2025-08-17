@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pirâmide de Gizé - FCTI 2025</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Menu de Acessibilidade -->
+  <nav aria-label="Acessibilidade" class="acessibilidade-nav">
+    <button onclick="alterarFonte('+')" aria-label="Aumentar fonte (tecla: Alt + A)">A+ Fonte</button>
+    <button onclick="alterarFonte('-')" aria-label="Diminuir fonte (tecla: Alt + D)">A- Fonte</button>
+    <button onclick="alternarContraste()" aria-label="Ativar/Desativar contraste (tecla: Alt + C)">Contraste</button>
+    <button id="btnLeitura" onclick="alternarLeitura()" aria-label="Ouvir ou parar descrição (tecla: Alt + L)">🔊 Ouvir descrição</button>
+  </nav>
+
+  <div class="container">
+    <header>
+      <h1 id="titulo" tabindex="0"></h1>
+      <p class="subtitulo" id="subtitulo" tabindex="0"></p>
+    </header>
+
+    <main>
+      <div class="imagem-container">
+        <img src="img/imagem03.jpg" alt="Pirâmide de Gizé, maior das três pirâmides do Egito Antigo" />
+      </div>
+
+      <section class="descricao">
+        <h2 tabindex="0">Sobre o Modelo</h2>
+        <p>
+          A <strong>Pirâmide de Gizé</strong>, também chamada de Grande Pirâmide, é a mais antiga das Sete Maravilhas do Mundo Antigo e a única ainda preservada. 
+          Foi construída como túmulo monumental para o faraó <strong>Quéops</strong>.
+        </p>
+
+        <h3 tabindex="0">Origem</h3>
+        <p>Egito Antigo – Planície de Gizé, próximo ao Cairo</p>
+
+        <h3 tabindex="0">Data Histórica</h3>
+        <p>Aproximadamente 2.560 a.C.</p>
+
+        <h3 tabindex="0">Curiosidades</h3>
+        <ul>
+          <li>Foi a estrutura mais alta do mundo por mais de 3.800 anos.</li>
+          <li>É composta por milhões de blocos de calcário, cada um pesando várias toneladas.</li>
+          <li>Seu alinhamento com os pontos cardeais é extremamente preciso.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>FCTI 2025 • ETE Palmares • #Inovação #História3D</p>
+    </footer>
+  </div>
+
+  <script>
+    // Efeito máquina de escrever
+    function typeWriter(elementId, text, delay = 50, callback = null) {
+      const el = document.getElementById(elementId);
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          el.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, delay);
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      typeWriter("titulo", "Pirâmide de Gizé", 80, () => {
+        typeWriter("subtitulo", "Quéops • Egito Antigo", 40);
+      });
+    });
+
+    // Acessibilidade - Fonte
+    let tamanhoFonte = 100;
+    function alterarFonte(acao) {
+      if (acao === '+') tamanhoFonte += 10;
+      else if (acao === '-' && tamanhoFonte > 60) tamanhoFonte -= 10;
+      document.body.style.fontSize = tamanhoFonte + '%';
+    }
+
+    // Acessibilidade - Contraste
+    function alternarContraste() {
+      document.body.classList.toggle("contraste-alto");
+    }
+
+    // Botão de leitura dinâmica
+    let lendo = false;
+    let utterance;
+    const btnLeitura = document.getElementById("btnLeitura");
+
+    function alternarLeitura() {
+      if (!lendo) lerTexto();
+      else pararLeitura();
+    }
+
+    function lerTexto() {
+      pararLeitura();
+      const texto = `
+        Pirâmide de Gizé.
+        Quéops – Egito Antigo.
+        Sobre o modelo: A Pirâmide de Gizé, também chamada de Grande Pirâmide, é a mais antiga das Sete Maravilhas do Mundo Antigo e a única ainda preservada. 
+        Foi construída como túmulo monumental para o faraó Quéops.
+        Origem: Egito Antigo – Planície de Gizé.
+        Data histórica: aproximadamente dois mil quinhentos e sessenta anos antes de Cristo.
+        Curiosidades:
+        Um – Foi a estrutura mais alta do mundo por mais de três mil e oitocentos anos.
+        Dois – É composta por milhões de blocos de calcário.
+        Três – Seu alinhamento com os pontos cardeais é extremamente preciso.
+      `;
+      utterance = new SpeechSynthesisUtterance(texto);
+      utterance.lang = 'pt-BR';
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.onend = () => {
+        lendo = false;
+        btnLeitura.textContent = "🔊 Ouvir descrição";
+      };
+      speechSynthesis.speak(utterance);
+      lendo = true;
+      btnLeitura.textContent = "⏹ Parar narração";
+    }
+
+    function pararLeitura() {
+      if (speechSynthesis.speaking) speechSynthesis.cancel();
+      lendo = false;
+      btnLeitura.textContent = "🔊 Ouvir descrição";
+    }
+
+    // Atalhos de teclado
+    window.addEventListener("keydown", (e) => {
+      if (e.altKey) {
+        const k = e.key.toLowerCase();
+        if (k === 'a') alterarFonte('+');
+        if (k === 'd') alterarFonte('-');
+        if (k === 'c') alternarContraste();
+        if (k === 'l') alternarLeitura();
+      }
+    });
+  </script>
+</body>
+</html>
