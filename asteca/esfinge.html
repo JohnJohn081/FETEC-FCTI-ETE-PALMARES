@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grande Esfinge de Gizé - FCTI 2025</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Menu de Acessibilidade -->
+  <nav aria-label="Acessibilidade" class="acessibilidade-nav">
+    <button onclick="alterarFonte('+')" aria-label="Aumentar fonte (tecla: Alt + A)">A+ Fonte</button>
+    <button onclick="alterarFonte('-')" aria-label="Diminuir fonte (tecla: Alt + D)">A- Fonte</button>
+    <button onclick="alternarContraste()" aria-label="Ativar/Desativar contraste (tecla: Alt + C)">Contraste</button>
+    <button id="btnLeitura" onclick="alternarLeitura()" aria-label="Ouvir ou parar descrição (tecla: Alt + L)">🔊 Ouvir descrição</button>
+  </nav>
+
+  <div class="container">
+    <header>
+      <h1 id="titulo" tabindex="0"></h1>
+      <p class="subtitulo" id="subtitulo" tabindex="0"></p>
+    </header>
+
+    <main>
+      <div class="imagem-container">
+        <img src="img/imagem04.jpg" alt="Grande Esfinge de Gizé, estátua monumental com corpo de leão e rosto humano" />
+      </div>
+
+      <section class="descricao">
+        <h2 tabindex="0">Sobre o Modelo</h2>
+        <p>
+          A <strong>Grande Esfinge de Gizé</strong> é uma das maiores e mais antigas estátuas do mundo. 
+          Esculpida em rocha calcária, representa um leão com cabeça humana, possivelmente o faraó <strong>Quéfren</strong>.
+        </p>
+
+        <h3 tabindex="0">Origem</h3>
+        <p>Egito Antigo – Planície de Gizé</p>
+
+        <h3 tabindex="0">Data Histórica</h3>
+        <p>Aproximadamente 2.500 a.C.</p>
+
+        <h3 tabindex="0">Curiosidades</h3>
+        <ul>
+          <li>Possui 73 metros de comprimento e 20 metros de altura.</li>
+          <li>É considerada um símbolo de poder e proteção no Egito Antigo.</li>
+          <li>Parte de seu nariz foi destruída na Antiguidade.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>FCTI 2025 • ETE Palmares • #Inovação #História3D</p>
+    </footer>
+  </div>
+
+  <script>
+    // Efeito máquina de escrever
+    function typeWriter(elementId, text, delay = 50, callback = null) {
+      const el = document.getElementById(elementId);
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          el.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, delay);
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      typeWriter("titulo", "Grande Esfinge de Gizé", 80, () => {
+        typeWriter("subtitulo", "Quéfren • Egito Antigo", 40);
+      });
+    });
+
+    // Acessibilidade - Fonte
+    let tamanhoFonte = 100;
+    function alterarFonte(acao) {
+      if (acao === '+') tamanhoFonte += 10;
+      else if (acao === '-' && tamanhoFonte > 60) tamanhoFonte -= 10;
+      document.body.style.fontSize = tamanhoFonte + '%';
+    }
+
+    // Acessibilidade - Contraste
+    function alternarContraste() {
+      document.body.classList.toggle("contraste-alto");
+    }
+
+    // Botão de leitura dinâmica
+    let lendo = false;
+    let utterance;
+    const btnLeitura = document.getElementById("btnLeitura");
+
+    function alternarLeitura() {
+      if (!lendo) lerTexto();
+      else pararLeitura();
+    }
+
+    function lerTexto() {
+      pararLeitura();
+      const texto = `
+        Grande Esfinge de Gizé.
+        Quéfren – Egito Antigo.
+        Sobre o modelo: A Grande Esfinge de Gizé é uma das maiores e mais antigas estátuas do mundo. 
+        Esculpida em rocha calcária, representa um leão com cabeça humana, possivelmente o faraó Quéfren.
+        Origem: Egito Antigo – Planície de Gizé.
+        Data histórica: aproximadamente dois mil e quinhentos anos antes de Cristo.
+        Curiosidades:
+        Um – Possui setenta e três metros de comprimento e vinte metros de altura.
+        Dois – É considerada um símbolo de poder e proteção no Egito Antigo.
+        Três – Parte de seu nariz foi destruída na Antiguidade.
+      `;
+      utterance = new SpeechSynthesisUtterance(texto);
+      utterance.lang = 'pt-BR';
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.onend = () => {
+        lendo = false;
+        btnLeitura.textContent = "🔊 Ouvir descrição";
+      };
+      speechSynthesis.speak(utterance);
+      lendo = true;
+      btnLeitura.textContent = "⏹ Parar narração";
+    }
+
+    function pararLeitura() {
+      if (speechSynthesis.speaking) speechSynthesis.cancel();
+      lendo = false;
+      btnLeitura.textContent = "🔊 Ouvir descrição";
+    }
+
+    // Atalhos de teclado
+    window.addEventListener("keydown", (e) => {
+      if (e.altKey) {
+        const k = e.key.toLowerCase();
+        if (k === 'a') alterarFonte('+');
+        if (k === 'd') alterarFonte('-');
+        if (k === 'c') alternarContraste();
+        if (k === 'l') alternarLeitura();
+      }
+    });
+  </script>
+</body>
+</html>
