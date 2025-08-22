@@ -52,6 +52,17 @@
       <p>FCTI 2025 • ETE Palmares • #Inovação #História3D</p>
     </footer>
   </div>
+  <!-- VLibras Widget -->
+<div class="enabled" vw="">
+<div class="active" vw-access-button=""></div>
+<div vw-plugin-wrapper="">
+<div class="vw-plugin-top-wrapper"></div>
+</div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+          new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
 
   <script>
     // Efeito máquina de escrever
@@ -106,6 +117,9 @@
         Quéops – Egito Antigo.
         Sobre o modelo: A Pirâmide de Gizé, também chamada de Grande Pirâmide, é a mais antiga das Sete Maravilhas do Mundo Antigo e a única ainda preservada. 
         Foi construída como túmulo monumental para o faraó Quéops.
+        Imagem: A imagem mostra a Pirâmide de Gizé vista de frente, destacando sua forma triangular perfeita e os blocos de calcário que compõem a estrutura. 
+        Ao redor, é possível observar a planície desértica e o céu claro, transmitindo a grandiosidade e a imponência da construção. 
+        A perspectiva evidencia a escala monumental da pirâmide em relação ao ambiente e reforça sua importância histórica e cultural no Egito Antigo.
         Origem: Egito Antigo – Planície de Gizé.
         Data histórica: aproximadamente dois mil quinhentos e sessenta anos antes de Cristo.
         Curiosidades:
@@ -113,6 +127,7 @@
         Dois – É composta por milhões de blocos de calcário.
         Três – Seu alinhamento com os pontos cardeais é extremamente preciso.
       `;
+
       utterance = new SpeechSynthesisUtterance(texto);
       utterance.lang = 'pt-BR';
       utterance.rate = 1;

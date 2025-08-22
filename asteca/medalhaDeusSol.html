@@ -1,21 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Medalha do Deus do Sol - FCTI 2025</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Medalha do Deus do Sol - FCTI 2025</title>
+<link rel="stylesheet" href="style.css" />
+<style>
+  .botao-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #e83b3d;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 20px 0;
+  }
+
+  .botao-voltar:hover {
+    background-color: #c62f30;
+    transform: scale(1.05);
+  }
+
+  body.contraste-alto .botao-voltar {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+
+  @media (max-width: 600px) {
+    .botao-voltar {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 15px;
+  }
+
+  .imagem-container img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+  }
+
+  .descricao h2, .descricao h3 {
+    color: #e83b3d;
+    margin-top: 15px;
+  }
+
+  .descricao p, .descricao li {
+    line-height: 1.5;
+  }
+
+  .subtitulo {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-top: 5px;
+  }
+</style>
 </head>
 <body>
   <!-- Menu de Acessibilidade -->
   <nav aria-label="Acessibilidade" class="acessibilidade-nav">
-    <button onclick="alterarFonte('+')" aria-label="Aumentar fonte (tecla: Alt + A)">A+ Fonte</button>
-    <button onclick="alterarFonte('-')" aria-label="Diminuir fonte (tecla: Alt + D)">A- Fonte</button>
-    <button onclick="alternarContraste()" aria-label="Ativar/Desativar contraste (tecla: Alt + C)">Contraste</button>
-    <button id="btnLeitura" onclick="alternarLeitura()" aria-label="Ouvir ou parar descrição (tecla: Alt + L)">🔊 Ouvir descrição</button>
+    <button onclick="alterarFonte('+')" aria-label="Aumentar fonte (Alt + A)">A+ Fonte</button>
+    <button onclick="alterarFonte('-')" aria-label="Diminuir fonte (Alt + D)">A- Fonte</button>
+    <button onclick="alternarContraste()" aria-label="Ativar/Desativar contraste (Alt + C)">Contraste</button>
+    <button id="btnLeitura" onclick="alternarLeitura()" aria-label="Ouvir ou parar descrição (Alt + L)">🔊 Ouvir descrição</button>
   </nav>
 
   <div class="container">
+    <!-- Botão voltar -->
+    <button class="botao-voltar" onclick="window.location.href='index.html'">&#8592; Página Principal</button>
+
     <header>
       <h1 id="titulo" tabindex="0"></h1>
       <p class="subtitulo" id="subtitulo" tabindex="0"></p>
@@ -52,110 +118,100 @@
       <p>FCTI 2025 • ETE Palmares • #Inovação #História3D</p>
     </footer>
   </div>
+  <!-- VLibras Widget -->
+<div class="enabled" vw="">
+<div class="active" vw-access-button=""></div>
+<div vw-plugin-wrapper="">
+<div class="vw-plugin-top-wrapper"></div>
+</div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+          new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
 
-  <script>
-    // Efeito máquina de escrever
-    function typeWriter(elementId, text, delay = 50, callback = null) {
-      const el = document.getElementById(elementId);
-      let i = 0;
-      function type() {
-        if (i < text.length) {
-          el.innerHTML += text.charAt(i);
-          i++;
-          setTimeout(type, delay);
-        } else if (callback) {
-          callback();
-        }
-      }
-      type();
+<script>
+  // Máquina de escrever
+  function typeWriter(elementId, text, delay = 50, callback = null) {
+    const el = document.getElementById(elementId);
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        el.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, delay);
+      } else if (callback) callback();
     }
+    type();
+  }
 
-    window.addEventListener("DOMContentLoaded", () => {
-      typeWriter("titulo", "Medalha do Deus do Sol", 80, () => {
-        typeWriter("subtitulo", "Kinich Ahau • Religião Maia", 40);
-      });
+  window.addEventListener("DOMContentLoaded", () => {
+    typeWriter("titulo", "Medalha do Deus do Sol", 80, () => {
+      typeWriter("subtitulo", "Kinich Ahau • Religião Maia", 40);
     });
+  });
 
-    // Acessibilidade - Fonte
-    let tamanhoFonte = 100;
+  // Fonte
+  let tamanhoFonte = 100;
+  function alterarFonte(acao) {
+    if(acao==='+') tamanhoFonte+=10;
+    else if(acao==='-' && tamanhoFonte>60) tamanhoFonte-=10;
+    document.body.style.fontSize = tamanhoFonte + '%';
+  }
 
-    function alterarFonte(acao) {
-      if (acao === '+') {
-        tamanhoFonte += 10;
-      } else if (acao === '-' && tamanhoFonte > 60) {
-        tamanhoFonte -= 10;
-      }
-      document.body.style.fontSize = tamanhoFonte + '%';
+  // Contraste
+  function alternarContraste() { document.body.classList.toggle("contraste-alto"); }
+
+  // Leitura em voz alta
+  let lendo = false;
+  let utterance;
+  const btnLeitura = document.getElementById("btnLeitura");
+
+  function alternarLeitura() { if(!lendo) lerTexto(); else pararLeitura(); }
+
+  function lerTexto() {
+    pararLeitura();
+    const texto = `
+      Medalha do Deus do Sol.
+      Kinich Ahau – Religião Maia.
+      Sobre o modelo: A religião maia era politeísta, com deuses associados à natureza, aos astros e às atividades humanas. 
+      O medalhão representa Kinich Ahau, o Deus do Sol.
+      Imagem: A imagem mostra uma medalha circular de pedra ou metal, com relevos detalhando o rosto estilizado de Kinich Ahau. 
+      É possível observar traços geométricos e símbolos solares ao redor da face, representando a importância do sol na cosmologia maia. 
+      As cores e texturas da medalha evidenciam o trabalho artesanal e a riqueza simbólica do objeto.
+      Origem: Mesoamérica – atual México.
+      Data histórica: entre os séculos quatro e dez.
+      Curiosidades:
+      Um – Kinich Ahau era associado à vida, luz e calor.
+      Dois – Os maias acreditavam que ele garantia a renovação do ciclo diário do sol.
+      Três – Era um dos deuses mais importantes do panteão maia.
+    `;
+    utterance = new SpeechSynthesisUtterance(texto);
+    utterance.lang = 'pt-BR';
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    utterance.onend = () => { lendo=false; btnLeitura.textContent="🔊 Ouvir descrição"; };
+    speechSynthesis.speak(utterance);
+    lendo=true;
+    btnLeitura.textContent="⏹ Parar narração";
+  }
+
+  function pararLeitura() {
+    if(speechSynthesis.speaking) speechSynthesis.cancel();
+    lendo=false;
+    btnLeitura.textContent="🔊 Ouvir descrição";
+  }
+
+  // Atalhos
+  window.addEventListener("keydown", (e)=>{
+    if(e.altKey){
+      const k=e.key.toLowerCase();
+      if(k==='a') alterarFonte('+');
+      if(k==='d') alterarFonte('-');
+      if(k==='c') alternarContraste();
+      if(k==='l') alternarLeitura();
     }
-
-    // Acessibilidade - Contraste
-    function alternarContraste() {
-      document.body.classList.toggle("contraste-alto");
-    }
-
-    // Botão de leitura dinâmica
-    let lendo = false;
-    let utterance;
-    const btnLeitura = document.getElementById("btnLeitura");
-
-    function alternarLeitura() {
-      if (!lendo) {
-        lerTexto();
-      } else {
-        pararLeitura();
-      }
-    }
-
-    // Leitura em voz alta usando Speech Synthesis API
-    function lerTexto() {
-      pararLeitura();
-
-      const texto = `
-        Medalha do Deus do Sol.
-        Kinich Ahau – Religião Maia.
-        Sobre o modelo: A religião maia era politeísta, com deuses associados à natureza, aos astros e às atividades humanas. 
-        O medalhão representa Kinich Ahau, o Deus do Sol.
-        Origem: Mesoamérica – atual México.
-        Data histórica: entre os séculos quatro e dez.
-        Curiosidades:
-        Um – Kinich Ahau era associado à vida, luz e calor.
-        Dois – Os maias acreditavam que ele garantia a renovação do ciclo diário do sol.
-        Três – Era um dos deuses mais importantes do panteão maia.
-      `;
-
-      utterance = new SpeechSynthesisUtterance(texto);
-      utterance.lang = 'pt-BR';
-      utterance.rate = 1;
-      utterance.pitch = 1;
-
-      utterance.onend = () => {
-        lendo = false;
-        btnLeitura.textContent = "🔊 Ouvir descrição";
-      };
-
-      speechSynthesis.speak(utterance);
-      lendo = true;
-      btnLeitura.textContent = "⏹ Parar narração";
-    }
-
-    function pararLeitura() {
-      if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
-      }
-      lendo = false;
-      btnLeitura.textContent = "🔊 Ouvir descrição";
-    }
-
-    // Atalhos de teclado
-    window.addEventListener("keydown", (e) => {
-      if (e.altKey) {
-        const k = e.key.toLowerCase();
-        if (k === 'a') alterarFonte('+');
-        if (k === 'd') alterarFonte('-');
-        if (k === 'c') alternarContraste();
-        if (k === 'l') alternarLeitura();
-      }
-    });
-  </script>
+  });
+</script>
 </body>
 </html>
