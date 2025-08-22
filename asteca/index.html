@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Índice de Páginas - FCTI 2025</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Botões de páginas - Mobile First */
+    .pagina-btn {
+      display: block;
+      width: 100%;
+      background-color: #e83b3d;
+      color: #fff;
+      border: none;
+      padding: 12px 15px;
+      border-radius: 6px;
+      margin: 8px 0;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .pagina-btn:hover {
+      background-color: #c62f30;
+      transform: scale(1.02);
+    }
+
+    .pagina-descricao {
+      font-size: 0.9rem;
+      color: #333;
+      margin: 4px 0 10px 0;
+      padding: 0 5px;
+    }
+
+    body.contraste-alto .pagina-descricao {
+      color: #fff;
+    }
+
+    /* Container flexível para telas maiores */
+    @media (min-width: 600px) {
+      .pagina-item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .pagina-item {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .pagina-descricao {
+        margin-left: 15px;
+        flex: 1;
+      }
+
+      .pagina-btn {
+        width: 200px;
+        flex-shrink: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu de Acessibilidade -->
+  <nav class="acessibilidade-nav">
+    <button onclick="document.body.classList.toggle('contraste-alto')">Contraste Alto</button>
+    <button onclick="aumentarFonte()">Aumentar Fonte</button>
+    <button onclick="diminuirFonte()">Diminuir Fonte</button>
+  </nav>
+
+  <div class="container">
+    <!-- Cabeçalho -->
+    <header>
+      <h1 id="titulo">Índice de Páginas</h1>
+      <p id="subtitulo" class="subtitulo">Explore nossas páginas históricas e culturais</p>
+    </header>
+
+    <!-- Lista de páginas -->
+    <div class="descricao">
+      <h2>Páginas disponíveis:</h2>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='davi.html'">Davi de Michelangelo</button>
+        <p class="pagina-descricao">A escultura renascentista Davi de Michelangelo, feita em mármore branco, representando um jovem em posição de observação, com detalhes realistas no corpo.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='piramedeDeGize.html'">Pirâmide de Gizé</button>
+        <p class="pagina-descricao">A Grande Pirâmide de Gizé, localizada no deserto do Egito, com céu claro ao fundo.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='esfinge.html'">Esfinge de Gizé</button>
+        <p class="pagina-descricao">A Esfinge de Gizé, corpo de leão e cabeça humana, próxima às pirâmides, em cenário desértico.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='fatman.html'">Fat Man</button>
+        <p class="pagina-descricao">A bomba nuclear ‘Fat Man’, esférica e pintada de amarelo, usada na Segunda Guerra Mundial.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='coliseu.html'">Coliseu de Roma</button>
+        <p class="pagina-descricao">O Coliseu de Roma, anfiteatro de pedra com suas arcadas características.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='temploGrego.html'">Templo Grego</button>
+        <p class="pagina-descricao">Um templo grego clássico, com colunas altas de mármore em estilo dórico.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='asteca.html'">Artefato Asteca</button>
+        <p class="pagina-descricao">Artefato asteca representando o deus Sol, em forma circular, com detalhes geométricos.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='medalhaDeusSol.html'">Medalha do Deus Sol</button>
+        <p class="pagina-descricao">Artefato asteca representando o deus Sol, em forma circular, com detalhes geométricos.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='cranio.html'">Crânio Pré-Histórico</button>
+        <p class="pagina-descricao">Crânio de um homem pré-histórico, com detalhes ósseos visíveis.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='sapo.html'">Muiraquitã em formato de Sapo</button>
+        <p class="pagina-descricao">Um muiraquitã em formato de sapo, pequeno amuleto de pedra verde usado em rituais.</p>
+      </div>
+
+      <div class="pagina-item">
+        <button class="pagina-btn" onclick="window.location.href='onibusEspacial.html'">Ônibus Espacial</button>
+        <p class="pagina-descricao">O ônibus espacial, veículo reutilizável da NASA, usado para transportar astronautas e cargas à órbita terrestre.</p>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer>
+    &copy; 2025 FCTI - Todos os direitos reservados
+  </footer>
+
+  <script>
+    // Funções para alterar o tamanho da fonte
+    function aumentarFonte() {
+      const body = document.body;
+      const style = window.getComputedStyle(body, null).getPropertyValue('font-size');
+      const currentSize = parseFloat(style);
+      body.style.fontSize = (currentSize + 2) + 'px';
+    }
+
+    function diminuirFonte() {
+      const body = document.body;
+      const style = window.getComputedStyle(body, null).getPropertyValue('font-size');
+      const currentSize = parseFloat(style);
+      if(currentSize > 8) {
+        body.style.fontSize = (currentSize - 2) + 'px';
+      }
+    }
+  </script>
+</body>
+</html>
