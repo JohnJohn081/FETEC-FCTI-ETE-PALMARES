@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Archeo3D • Quiz Acessível de Antiguidade</title>
+  <style>
+    :root {
+      --base-font-size: 18px;
+      --radius: 16px;
+      --brand: #e53935;
+      --brand-700: #c62828;
+      --card-bg: #ffffff;
+      --text: #222;
+      --muted: #5f6368;
+      --shadow: 0 8px 24px rgba(0,0,0,.08);
+      --focus: 3px solid #1a73e8;
+    }
+    html { font-size: var(--base-font-size); }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial; color: var(--text); background: #f6f7fb; line-height: 1.6; }
+    body.contrast { background: #000; color: #fff; }
+    body.contrast .card { background: #111; color: #fff; box-shadow: none; }
+    body.contrast a, body.contrast button { color: #fff; }
+    body.contrast .btn.primary { background: #fff; color: #000; }
+    body.contrast .btn.ghost { border-color: #fff; }
+    body.contrast .option { border-color: #fff; }
+    body.contrast .option:focus-within { outline: 3px solid #ff0; }
+    body.contrast .progress { color: #ff0; }
+
+    .container { max-width: 960px; margin: 0 auto; padding: clamp(12px, 3vw, 24px); }
+
+    .toolbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #eee; box-shadow: 0 2px 12px rgba(0,0,0,.04); }
+    .toolbar-inner { display: flex; gap: 8px; align-items: center; justify-content: space-between; padding: 10px 0; }
+    .btn { appearance: none; border: 1px solid #ddd; background: #fff; color: #111; padding: .55rem .8rem; border-radius: 999px; cursor: pointer; font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,.05); transition: transform .06s ease, box-shadow .2s ease, background .2s ease; }
+    .btn:active { transform: translateY(1px); }
+    .btn:focus-visible { outline: var(--focus); }
+    .btn.primary { background: var(--brand); color: #fff; border-color: var(--brand-700); }
+    .btn.ghost { background: transparent; border: 2px solid #222; }
+
+    .brand-banner { background: var(--brand); color: #fff; border-radius: var(--radius); padding: clamp(16px, 3.5vw, 28px); box-shadow: var(--shadow); margin: 16px 0 20px; }
+    .brand-banner h1 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); margin: 0 0 6px; letter-spacing: .3px; }
+    .brand-banner .subtitle { opacity: .95; font-weight: 600; }
+
+    .card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(14px, 3vw, 22px); }
+    .question-head { display: grid; gap: 12px; grid-template-columns: 1fr; align-items: start; }
+    .listen-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .progress { font-weight: 700; color: var(--muted); }
+    .options { display: grid; gap: 12px; margin-top: 14px; }
+    .option { border: 2px solid #e6e6e6; border-radius: 14px; padding: 10px 12px; display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; background: #fff; }
+    .option:hover { background: #fafafa; }
+    .option input { width: 22px; height: 22px; }
+    .option label { font-weight: 600; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .feedback { margin-top: 8px; font-weight: 700; }
+    footer { color: var(--muted); text-align: center; font-size: .95rem; margin: 24px 0 10px; }
+    .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    @media (min-width: 720px) { .question-head { grid-template-columns: 1fr auto; } }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" role="navigation" aria-label="Ferramentas de acessibilidade">
+    <div class="container toolbar-inner">
+      <div style="display:flex; gap:8px; flex-wrap: wrap; align-items:center;">
+        <button class="btn" id="fontPlus" aria-label="Aumentar fonte" title="Aumentar fonte">A+ Fonte</button>
+        <button class="btn" id="fontMinus" aria-label="Diminuir fonte" title="Diminuir fonte">A- Fonte</button>
+        <button class="btn" id="fontReset" aria-label="Restaurar tamanho da fonte" title="Restaurar fonte">Padrão</button>
+        <button class="btn" id="contrast" aria-pressed="false" aria-label="Alternar alto contraste" title="Alto contraste">Contraste</button>
+      </div>
+      <strong aria-live="polite" class="progress" id="liveProgress">Carregando…</strong>
+    </div>
+  </nav>
+
+  <main class="container" id="app">
+    <section class="brand-banner" aria-labelledby="title">
+      <h1 id="title">Grande Quiz da Antiguidade</h1>
+      <div class="subtitle">Acesse, ouça, participe</div>
+    </section>
+
+    <section class="card" aria-labelledby="qTitle">
+      <div class="question-head">
+        <h2 id="qTitle">Pergunta</h2>
+        <div class="listen-row" role="group" aria-label="Controles de fala">
+          <button class="btn primary" id="listenQuestion" title="Ouvir a pergunta" aria-label="Ouvir a pergunta">🔊 Ouvir pergunta</button>
+          <button class="btn" id="listenOptions" title="Ouvir alternativas" aria-label="Ouvir alternativas">🔈 Ouvir alternativas</button>
+          <button class="btn ghost" id="stopSpeech" title="Parar leitura" aria-label="Parar leitura">⏹ Parar</button>
+        </div>
+      </div>
+
+      <p id="questionText" style="font-size:clamp(1.05rem,2.5vw,1.25rem); font-weight:700; margin-bottom:8px;"></p>
+
+      <form id="optionsForm" class="options" aria-describedby="qHelp"></form>
+
+      <div id="qHelp" class="sr-only">Use as setas do teclado para navegar entre as alternativas e barra de espaço para selecionar.</div>
+
+      <div class="actions">
+        <button class="btn primary" id="submitBtn">Confirmar</button>
+        <button class="btn" id="nextBtn" disabled>Próxima</button>
+        <button class="btn ghost" id="repeatBtn" title="Repetir pergunta e alternativas">Repetir 🔁</button>
+      </div>
+
+      <div id="feedback" class="feedback" aria-live="polite" aria-atomic="true"></div>
+    </section>
+
+    <section class="card" id="resultCard" style="display:none; margin-top:16px;">
+      <h2>Resultado</h2>
+      <p id="resultText"></p>
+      <div class="actions">
+        <button class="btn primary" id="restartBtn">Refazer</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Archeo3D • Foco em acessibilidade • Web Speech API
+  </footer>
+
+  <script>
+    const questions = [
+      {question:"Qual era a principal função dos templos astecas?", options:["Servir como residência para os governantes.","Ser utilizado em rituais religiosos e cerimônias dedicadas aos deuses.","Funcionarem como locais de comércio.","Serem fortalezas militares contra invasores."], answer:1},
+      {question:"Onde estava localizado o Templo Mayor, o mais famoso templo asteca?", options:["Machu Picchu.","Chichén Itzá.","Tenochtitlán.","Teotihuacán."], answer:2},
+      {question:"Qual é o significado simbólico da Grande Esfinge de Gizé no Egito Antigo?", options:["Um monumento funerário para os sacerdotes.","Um local usado para reuniões políticas.","Um símbolo de poder e proteção.","Um símbolo de comércio e riqueza."], answer:2},
+      {question:"Qual era a principal finalidade da Grande Pirâmide de Gizé?", options:["Servir como observatório astronômico.","Local de reuniões administrativas do Egito Antigo.","Ser um templo de adoração aos deuses.","Funcionava como túmulo monumental para o faraó Quéops."], answer:3},
+      {question:"Qual era a principal função do Coliseu na Roma Antiga?", options:["Espaço para combates de gladiadores e espetáculos públicos.","Local para cerimônias religiosas.","Servir como residência dos imperadores.","Centro administrativo do Império Romano."], answer:0}
+    ];
+
+    let index=0, score=0, locked=false;
+    const els = {
+      liveProgress: document.getElementById('liveProgress'),
+      qTitle: document.getElementById('qTitle'),
+      questionText: document.getElementById('questionText'),
+      form: document.getElementById('optionsForm'),
+      submitBtn: document.getElementById('submitBtn'),
+      nextBtn: document.getElementById('nextBtn'),
+      repeatBtn: document.getElementById('repeatBtn'),
+      feedback: document.getElementById('feedback'),
+      resultCard: document.getElementById('resultCard'),
+      resultText: document.getElementById('resultText'),
+      restartBtn: document.getElementById('restartBtn'),
+      listenQuestion: document.getElementById('listenQuestion'),
+      listenOptions: document.getElementById('listenOptions'),
+      stopSpeech: document.getElementById('stopSpeech'),
+      fontPlus: document.getElementById('fontPlus'),
+      fontMinus: document.getElementById('fontMinus'),
+      fontReset: document.getElementById('fontReset'),
+      contrast: document.getElementById('contrast'),
+    };
+
+    function updateProgress(){ els.liveProgress.textContent = `Pergunta ${index+1} de ${questions.length}`; }
+
+    function renderQuestion(){
+      locked=false; els.feedback.textContent=''; els.nextBtn.disabled=true;
+      const q=questions[index]; els.questionText.textContent=q.question; els.form.innerHTML='';
+      q.options.forEach((opt,i)=>{
+        const id=`opt-${index}-${i}`;
+        const wrapper=document.createElement('div'); wrapper.className='option';
+        const input=document.createElement('input'); input.type='radio'; input.name='answer'; input.id=id; input.value=i; input.required=true;
+        const label=document.createElement('label'); label.setAttribute('for',id); label.textContent=opt;
+        wrapper.appendChild(input); wrapper.appendChild(label);
+        els.form.appendChild(wrapper);
+      });
+      const first=els.form.querySelector('input'); if(first) first.focus();
+      updateProgress();
+    }
+
+    function confirmAnswer(ev){
+      ev.preventDefault();
+      if(locked) return;
+      const selected=els.form.querySelector('input[name="answer"]:checked');
+      if(!selected){ announce('Selecione uma alternativa.'); return; }
+      locked=true;
+      const correct=Number(selected.value)===questions[index].answer;
+      const rightLabel=questions[index].options[questions[index].answer];
+      if(correct){ score++; els.feedback.textContent='✅ Resposta correta!'; speak('Resposta correta.'); }
+      else{ els.feedback.textContent=`❌ Resposta incorreta. Correto: ${rightLabel}.`; speak(`Resposta incorreta. O correto é: ${rightLabel}.`); }
+      els.nextBtn.disabled=false; els.nextBtn.focus();
+    }
+
+    function nextQuestion(){ stopSpeech(); index++; if(index>=questions.length){ showResult(); return; } renderQuestion(); }
+
+    function showResult(){
+      document.querySelector('.card').setAttribute('aria-hidden','true');
+      els.resultCard.style.display='block';
+      els.resultText.textContent=`Você acertou ${score} de ${questions.length}.`;
+      els.liveProgress.textContent='Concluído';
+      speak(els.resultText.textContent);
+    }
+
+    function restart(){ stopSpeech(); index=0; score=0; locked=false;
+      document.querySelector('.card').removeAttribute('aria-hidden');
+      els.resultCard.style.display='none';
+      renderQuestion();
+    }
+
+    function speak(text){ try{ stopSpeech(); const u=new SpeechSynthesisUtterance(text); u.lang='pt-BR'; u.rate=1; u.pitch=1; u.volume=1; window.speechSynthesis.speak(u); }catch(e){} }
+    function stopSpeech(){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+    function listenQuestion(){ speak(`Pergunta ${index+1}. ${questions[index].question}`); }
+    function listenOptions(){
+      const text=questions[index].options.map((o,i)=>`Alternativa ${String.fromCharCode(65+i)}: ${o}`).join('. ');
+      speak(text);
+    }
+
+    const FONT_KEY='archeo3d-font-size';
+    function setBaseFont(px){ document.documentElement.style.setProperty('--base-font-size',`${px}px`); localStorage.setItem(FONT_KEY,String(px)); }
+    function getBaseFont(){ const saved=Number(localStorage.getItem(FONT_KEY)); return saved && saved>=14 && saved<=28 ? saved:18; }
+    function fontPlus(){ setBaseFont(Math.min(getBaseFont()+2,28)); announce('Fonte aumentada.'); }
+    function fontMinus(){ setBaseFont(Math.max(getBaseFont()-2,14)); announce('Fonte diminuída.'); }
+    function fontReset(){ setBaseFont(18); announce('Fonte padrão aplicada.'); }
+
+    const CONTRAST_KEY='archeo3d-contrast';
+    function toggleContrast(){
+      const enabled=!document.body.classList.contains('contrast');
+      document.body.classList.toggle('contrast',enabled);
+      els.contrast.setAttribute('aria-pressed',String(enabled));
+      localStorage.setItem(CONTRAST_KEY,enabled?'1':'0');
+      announce(enabled?'Alto contraste ativado.':'Alto contraste desativado.');
+    }
+
+    const live=document.createElement('div'); live.className='sr-only'; live.setAttribute('aria-live','polite'); live.setAttribute('aria-atomic','true'); document.body.appendChild(live);
+    function announce(msg){ live.textContent=msg; }
+
+    els.form.addEventListener('submit',confirmAnswer);
+    els.submitBtn.addEventListener('click',confirmAnswer);
+    els.nextBtn.addEventListener('click',nextQuestion);
+    els.repeatBtn.addEventListener('click',(e)=>{ e.preventDefault(); listenQuestion(); setTimeout(listenOptions,400); });
+    els.restartBtn.addEventListener('click',restart);
+
+    els.listenQuestion.addEventListener('click',listenQuestion);
+    els.listenOptions.addEventListener('click',listenOptions);
+    els.stopSpeech.addEventListener('click',stopSpeech);
+
+    els.fontPlus.addEventListener('click',fontPlus);
+    els.fontMinus.addEventListener('click',fontMinus);
+    els.fontReset.addEventListener('click',fontReset);
+    els.contrast.addEventListener('click',toggleContrast);
+
+    setBaseFont(getBaseFont());
+    if(localStorage.getItem(CONTRAST_KEY)==='1'){ document.body.classList.add('contrast'); els.contrast.setAttribute('aria-pressed','true'); }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
