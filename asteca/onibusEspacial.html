@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ônibus Espacial - FCTI 2025</title>
+<link rel="stylesheet" href="style.css" />
+<style>
+  .botao-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #0077b6;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 20px 0;
+  }
+  .botao-voltar:hover { background-color: #005f87; transform: scale(1.05); }
+  body.contraste-alto .botao-voltar { background-color: #000; color: #fff; border: 1px solid #fff; }
+  @media (max-width:600px) { .botao-voltar { width: 100%; justify-content: center; } }
+  .container { max-width:900px; margin:auto; padding:15px; }
+  .imagem-container img { max-width:100%; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-bottom:15px; }
+  .descricao h2, .descricao h3 { color:#0077b6; margin-top:15px; }
+  .descricao p, .descricao li { line-height:1.5; }
+  .subtitulo { font-size:1rem; opacity:0.9; margin-top:5px; }
+</style>
+</head>
+<body>
+<nav aria-label="Acessibilidade" class="acessibilidade-nav">
+  <button onclick="alterarFonte('+')" aria-label="Aumentar fonte (Alt + A)">A+ Fonte</button>
+  <button onclick="alterarFonte('-')" aria-label="Diminuir fonte (Alt + D)">A- Fonte</button>
+  <button onclick="alternarContraste()" aria-label="Ativar/Desativar contraste (Alt + C)">Contraste</button>
+  <button id="btnLeitura" onclick="alternarLeitura()" aria-label="Ouvir ou parar descrição (Alt + L)">🔊 Ouvir descrição</button>
+</nav>
+
+<div class="container">
+  <button class="botao-voltar" onclick="window.location.href='index.html'">&#8592; Página Principal</button>
+
+  <header>
+    <h1 id="titulo" tabindex="0"></h1>
+    <p class="subtitulo" id="subtitulo" tabindex="0"></p>
+  </header>
+
+  <main>
+    <div class="imagem-container">
+      <figure>
+        <img src="img/onibus_espacial.jpg" alt="Ônibus espacial em lançamento com chamas e fumaça" />
+        <figcaption tabindex="0">
+          A imagem mostra um ônibus espacial sendo lançado, com foguetes laterais acesos e uma grande nuvem de fumaça na base. 
+          O corpo principal da nave é branco e cilíndrico, destacando-se contra o céu azul. O efeito das chamas e fumaça transmite a potência do lançamento.
+        </figcaption>
+      </figure>
+    </div>
+
+    <section class="descricao">
+      <h2 tabindex="0">Sobre o Ônibus Espacial</h2>
+      <p>O ônibus espacial foi um veículo reutilizável da NASA utilizado entre 1981 e 2011. Ele permitia o transporte de astronautas e cargas para o espaço, incluindo satélites e componentes da Estação Espacial Internacional.</p>
+
+      <h3 tabindex="0">Origem</h3>
+      <p>Estados Unidos da América</p>
+
+      <h3 tabindex="0">Período de Operação</h3>
+      <p>1981 – 2011</p>
+
+      <h3 tabindex="0">Curiosidades</h3>
+      <ul>
+        <li>Possuía cinco orbitadores principais: Columbia, Challenger, Discovery, Atlantis e Endeavour.</li>
+        <li>Foi fundamental na montagem da Estação Espacial Internacional (ISS).</li>
+        <li>Teve acidentes trágicos, como Challenger (1986) e Columbia (2003).</li>
+        <li>Foi o primeiro veículo espacial reutilizável em larga escala.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>FCTI 2025 • ETE Palmares • #Inovação #HistóriaEspacial</p>
+  </footer>
+</div>
+<!-- VLibras Widget -->
+<div class="enabled" vw="">
+<div class="active" vw-access-button=""></div>
+<div vw-plugin-wrapper="">
+<div class="vw-plugin-top-wrapper"></div>
+</div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+          new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
+
+<script>
+let tamanhoFonte = 100;
+let lendo = false;
+let utterance;
+const btnLeitura = document.getElementById("btnLeitura");
+
+// Máquina de escrever
+function typeWriter(elementId, text, delay=50, callback=null){
+  const el=document.getElementById(elementId); let i=0;
+  function type(){ if(i<text.length){ el.innerHTML+=text.charAt(i); i++; setTimeout(type,delay); } else if(callback) callback(); }
+  type();
+}
+
+window.addEventListener("DOMContentLoaded", ()=>{
+  typeWriter("titulo","Ônibus Espacial",80,()=>{ typeWriter("subtitulo","NASA • 1981-2011",40); });
+});
+
+// Fonte e contraste
+function alterarFonte(acao){ if(acao==='+') tamanhoFonte+=10; else if(acao==='-' && tamanhoFonte>60) tamanhoFonte-=10; document.body.style.fontSize=tamanhoFonte+'%'; }
+function alternarContraste(){ document.body.classList.toggle("contraste-alto"); }
+
+// Leitura
+function alternarLeitura(){ if(!lendo) lerTexto(); else pararLeitura(); }
+function lerTexto(){
+  pararLeitura();
+  const texto=`
+    Ônibus Espacial.
+    NASA, anos de 1981 a 2011.
+    Sobre o modelo: O ônibus espacial foi um veículo reutilizável utilizado para transportar astronautas e cargas ao espaço, incluindo satélites e componentes da Estação Espacial Internacional.
+    Origem: Estados Unidos da América.
+    Período de operação: 1981 a 2011.
+    Curiosidades:
+    Um – Possuía cinco orbitadores principais: Columbia, Challenger, Discovery, Atlantis e Endeavour.
+    Dois – Foi fundamental na montagem da Estação Espacial Internacional.
+    Três – Teve acidentes trágicos, como Challenger e Columbia.
+    Quatro – Foi o primeiro veículo espacial reutilizável em larga escala.
+    Descrição da imagem: A imagem mostra um ônibus espacial sendo lançado, com foguetes laterais acesos e nuvem de fumaça na base. O corpo principal da nave é branco e cilíndrico contra o céu azul, transmitindo a potência do lançamento.
+  `;
+  utterance = new SpeechSynthesisUtterance(texto);
+  utterance.lang='pt-BR'; utterance.rate=1; utterance.pitch=1;
+  utterance.onend=()=>{ lendo=false; btnLeitura.textContent="🔊 Ouvir descrição"; };
+  speechSynthesis.speak(utterance); lendo=true; btnLeitura.textContent="⏹ Parar narração";
+}
+function pararLeitura(){ if(speechSynthesis.speaking) speechSynthesis.cancel(); lendo=false; btnLeitura.textContent="🔊 Ouvir descrição"; }
+
+// Atalhos
+window.addEventListener("keydown",(e)=>{
+  if(e.altKey){
+    const k=e.key.toLowerCase();
+    if(k==='a') alterarFonte('+');
+    if(k==='d') alterarFonte('-');
+    if(k==='c') alternarContraste();
+    if(k==='l') alternarLeitura();
+  }
+});
+</script>
+</body>
+</html>
