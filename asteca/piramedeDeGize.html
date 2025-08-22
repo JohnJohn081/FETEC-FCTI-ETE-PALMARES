@@ -5,6 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pirâmide de Gizé - FCTI 2025</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .botao-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #e83b3d;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 20px 0;
+  }
+
+  .botao-voltar:hover {
+    background-color: #c62f30;
+    transform: scale(1.05);
+  }
+  </style>
 </head>
 <body>
   <!-- Menu de Acessibilidade -->
@@ -16,6 +38,8 @@
   </nav>
 
   <div class="container">
+      <button class="botao-voltar" onclick="window.location.href='index.html'">&#8592; Página Principal</button>
+
     <header>
       <h1 id="titulo" tabindex="0"></h1>
       <p class="subtitulo" id="subtitulo" tabindex="0"></p>
